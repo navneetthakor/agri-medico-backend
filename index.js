@@ -33,12 +33,13 @@ app.use("/public", express.static(path.join(__dirname, "public")));
 const userRoutes = require('./Routes/user.js');
 const medicineRoutes = require('./Routes/medicine.js');
 const userHistoryRoutes = require('./Routes/userHistory.js');
+const adminRoutes = require('./Routes/admin.js');
 
 // placing middlewares
 app.use('/user',userRoutes);
 app.use('/medicine',medicineRoutes);
-app.use('userHistory', userHistoryRoutes);
-
+app.use('/userHistory', userHistoryRoutes);
+app.use('/admin',adminRoutes);
 
 // default routes
 app.get("/", (req, res) => res.json({ signal: "green" }));
