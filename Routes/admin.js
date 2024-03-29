@@ -15,6 +15,7 @@ const fetchAdmin = require('../Middelwares/fetchAdmin.js');
 const createAdmin = require('../Controllers/admin/createAdmin.js');
 const adminLogin = require('../Controllers/admin/adminLogin.js');
 const adminAuthtokenLogin = require('../Controllers/admin/adminAuthtokenLogin.js');
+const updateAdmin = require('../Controllers/admin/updateAdmin.js');
 
 
 // --------------------------ROUTE:1 create Admin account ----------------------------------------------------------
@@ -39,5 +40,11 @@ adminLogin);
 router.post('/adminAuthtokenLogin', 
 fetchAdmin, 
 adminAuthtokenLogin);
+
+//  --------------------------Route:4 to update profile (login required) --------------------------
+router.put('/updateAdmin',
+fetchAdmin,
+upload.single('image'),
+updateAdmin);
 
 module.exports = router;

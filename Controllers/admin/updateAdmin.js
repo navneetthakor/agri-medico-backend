@@ -1,5 +1,5 @@
 // to connect with collection in mongoDb 
-const User = require('../../Model/User');
+const Admin = require('../../Model/Admin');
 
 // to delete image 
 const fs = require('fs');
@@ -9,42 +9,39 @@ const updateUser = async (req,res) => {
     try{
 
         // find id of user
-        const userId = req.user.id;
+        const adminId = req.admin.id;
         
         // find user 
-        const user = await User.findById(userId);
-        if(!user){
+        const admin = await Admin.findById(adminId);
+        if(!admin){
             // delete uploaded image 
             if(req.file) fs.unlinkSync(path.join(__dirname,'../..', req.file.path));
             return res.status(401).json({message: "Please login with valid credentials", signal: "red"});
         }
         
-        // now user exists
+        // now admin exists
         // get all the fields which are suppose to update 
-        const {username, contact_num, country, state, city} = req.body;
+        const {name, contact_num} = req.body;
         
         // create object to hold values 
-        const newUser = {
-            username: username ? username : user.username,
-            contact_num: contact_num ? contact_num : user.contact_num,
-            country: country ? country : user.country,
-            state: state ? state : user.state,
-            city: city ? city : user.city,
+        const newAdmin = {
+            name: name ? name : admin.name,
+            contact_num: contact_num ? contact_num : admin.contact_num,
         };
-        if(req.file) newUser.image = req.file.path;
+        if(req.file) newAdmin.image = req.file.path;
         
         // delete old image if new image is being provided 
-        if(req.file && user.image!=="") fs.unlinkSync(path.join(__dirname,'../..', user.image));
+        if(req.file && admin.image!=="") fs.unlinkSync(path.join(__dirname,'../..', admin.image));
         
         // now update profile 
-        const updtUser = await User.findByIdAndUpdate(
-            userId,
-            {$set : newUser},
+        const updtAdmin = await Admin.findByIdAndUpdate(
+            adminId,
+            {$set : newAdmin},
             {new :  true}
         )
             
         // return updated profile 
-        return  res.json({user: updtUser, signal:"green"});
+        return  res.json({admin: updtAdmin, signal:"green"});
     }
     catch(e){
         console.log(e);
