@@ -18,8 +18,7 @@ const DiseaseSchema = new Schema({
     },
 
     medicine:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'medicine'
+        type: String,
     },
 
     date:{

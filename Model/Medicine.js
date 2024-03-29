@@ -28,6 +28,6 @@ const MedicineSchema = new Schema({
 
 })
 
-const Medicine = mongoose.model('disease', MedicineSchema)
+const Medicine = mongoose.model('medicine', MedicineSchema)
 
 module.exports = Medicine
