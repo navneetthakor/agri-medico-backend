@@ -10,6 +10,7 @@ const upload = require('../middlewares/fetchImages');
 
 // importing controllers
 const createUser = require('../Controllers/user/createUser.js');
+const userLogin = require('../Controllers/user/userLogin.js');
 
 
 // --------------------------ROUTE:1 create user account ----------------------------------------------------------
@@ -24,3 +25,11 @@ upload.single('image'),
     body("password", "please enter password with minimum length of : 6").isLength({min:6})
 ],
 createUser);
+
+// --------------------------ROUTE:2 login to account (previous login not require) ----------------------------------------------------------
+router.post('/userlogin',
+[
+    body("email", "please enter valid email").isEmail(),
+    body("password", "please do enter your password").not().isEmpty()
+],
+userLogin);
