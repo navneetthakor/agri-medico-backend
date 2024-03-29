@@ -6,7 +6,7 @@ const router = express.Router();
 const {body} = require('express-validator');
 
 // to upload images 
-const upload = require('../middlewares/fetchImages');
+const upload = require('../Middelwares/fetchImages.js');
 
 // importing controllers
 const createUser = require('../Controllers/user/createUser.js');
@@ -33,3 +33,5 @@ router.post('/userlogin',
     body("password", "please do enter your password").not().isEmpty()
 ],
 userLogin);
+
+module.exports = router;

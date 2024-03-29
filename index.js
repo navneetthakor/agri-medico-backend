@@ -30,9 +30,10 @@ app.use("/public", express.static(path.join(__dirname, "public")));
 
 // --------------------------- Routing setup -------------------------------
 // importing routes files
+const userRoutes = require('./Routes/user.js');
 
 // placing middlewares
-
+app.use('/user',userRoutes);
 
 
 

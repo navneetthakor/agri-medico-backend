@@ -20,4 +20,4 @@ const UserHistorySchema = new Schema({
 
 const UserHistory = mongoose.model('userhistory', UserHistorySchema)
 
-module.exports = UserHistorySchema
+module.exports = UserHistory;
