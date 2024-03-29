@@ -1,7 +1,7 @@
 // here we are collecting details from token that we asigned while admin creation and login
 // so we required jsonwebtoken 
 const jwt = require('jsonwebtoken');
-const jwt_secret = "tonystarkismyrolemodel";
+const jwt_secret = process.env.JWT_SECRET;
 
 const fetchAdmin = async (req,res,next) =>{
     try{
