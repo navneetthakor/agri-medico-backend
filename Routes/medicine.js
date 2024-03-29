@@ -21,6 +21,7 @@ const viewSpecificMedicines = require('../Controllers/medicine/viewSpecificMedic
 
 // --------------------------ROUTE:1 Add medicine ----------------------------------------------------------
 router.post('/addmedicine',
+fetchAdmin,
 upload.single('image'),
 [
     body("name", "please enter medicine name.").not().isEmpty(),
@@ -30,7 +31,7 @@ upload.single('image'),
 addMedicine);
 
 // --------------------------ROUTE:2 Fetch medicines ----------------------------------------------------------
-router.post('/getallmedicines',
+router.get('/getallmedicines',
 viewMedicine);
 
 // --------------------------ROUTE:3 Fetch medicine with their names ----------------------------------------------------------
