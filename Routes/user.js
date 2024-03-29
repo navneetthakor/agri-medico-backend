@@ -15,6 +15,7 @@ const fetchUser = require('../Middelwares/fetchUser.js');
 const createUser = require('../Controllers/user/createUser.js');
 const userLogin = require('../Controllers/user/userLogin.js');
 const userAuthtokenLogin = require('../Controllers/user/userAuthtokenLogin.js');
+const updateUser = require('../Controllers/user/updateUser.js');
 
 
 // --------------------------ROUTE:1 create user account ----------------------------------------------------------
@@ -42,5 +43,11 @@ userLogin);
 router.post('/userAuthtokenLogin', 
 fetchUser , 
 userAuthtokenLogin);
+
+//  --------------------------Route:4 to update profile (login required) --------------------------
+router.put('/updateUser',
+fetchUser,
+upload.single('image'),
+updateUser);
 
 module.exports = router;
