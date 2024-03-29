@@ -12,50 +12,50 @@ const fetchAdmin = require('../Middelwares/fetchAdmin.js');
 const upload = require('../Middelwares/fetchImages.js');
 
 // importing controllers
-const addMedicine = require('../Controllers/medicine/addMedicine.js');
-const viewMedicine = require('../Controllers/medicine/viewMedicine.js');
-const viewSpecificMedicines = require('../Controllers/medicine/viewSpecificMedicines.js');
-const updateMedicine = require('../Controllers/medicine/updateMedicine.js');
-const deleteMedicine = require('../Controllers/medicine/deleteMedicine.js');
+const addDisease = require('../Controllers/disease/addDisease.js');
+const viewDisease = require('../Controllers/disease/viewDisease.js');
+const viewSpecificDisease = require('../Controllers/disease/viewSpecificDisease.js');
+const updateDisease = require('../Controllers/disease/updateDisease.js');
+const deleteDisease = require('../Controllers/disease/deleteDisease.js');
 
 
 // --------------------------ROUTE:1 Add medicine ----------------------------------------------------------
-router.post('/addmedicine',
+router.post('/adddisease',
 fetchAdmin,
 upload.single('image'),
 [
     body("name", "please enter medicine name.").not().isEmpty(),
     body("description", "please enter medicine description.").not().isEmpty(),
-    body("url", "please enter url").isArray().withMessage("Medicine urls to be provided in an array format"),
+    body("medicine_name", "please enter medicine names").isArray().withMessage("Medicine urls to be provided in an array format"),
 ],
-addMedicine);
+addDisease);
 
 // --------------------------ROUTE:2 Fetch medicines ----------------------------------------------------------
-router.get('/getallmedicines',
+router.get('/getalldiseases',
 fetchAdmin,
-viewMedicine);
+viewDisease);
 
 // --------------------------ROUTE:3 Fetch medicine with their names ----------------------------------------------------------
-router.post('/getmedicines',
+router.post('/getdisease',
 [
     body("name", "please enter valid name").isArray().withMessage("Give array of names."),
 ],
-viewSpecificMedicines);
+viewSpecificDisease);
 
 // --------------------------ROUTE:4 Delete medicine ----------------------------------------------------------
-router.get('/deletemedicine/:id',
+router.get('/deletedisease/:id',
 fetchAdmin,
-deleteMedicine);
+deleteDisease);
 
 // --------------------------ROUTE:5 Update medicine ----------------------------------------------------------
-router.put('/updatemedicine/:id',
+router.put('/updatedisease/:id',
 fetchAdmin,
 upload.single('image'),
 [
     body("name", "please enter medicine name.").not().isEmpty(),
     body("description", "please enter medicine description.").not().isEmpty(),
-    body("url", "please enter url").isArray().withMessage("Medicine urls to be provided in an array format"),
+    body("medicine_name", "please enter medicine names").isArray().withMessage("Medicine urls to be provided in an array format"),
 ],
-updateMedicine);
+updateDisease);
 
 module.exports = router;

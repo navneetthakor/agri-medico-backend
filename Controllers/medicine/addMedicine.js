@@ -36,7 +36,7 @@ const addMedicine = async(req,res) =>{
         })
         await newMedicine.save();
 
-        return res.status(200).json({"success": "Medicine added"})
+        return res.status(200).json({"Success": "Medicine added"})
 
     }catch(e){
         console.log(e);

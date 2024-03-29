@@ -17,9 +17,9 @@ const DiseaseSchema = new Schema({
         default: null,
     },
 
-    medicine:{
+    medicine_name:[{
         type: String,
-    },
+    }],
 
     date:{
         type: Date,

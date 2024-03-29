@@ -32,12 +32,14 @@ app.use("/public", express.static(path.join(__dirname, "public")));
 // importing routes files
 const userRoutes = require('./Routes/user.js');
 const medicineRoutes = require('./Routes/medicine.js');
+const diseaseRoutes = require('./Routes/disease.js');
 const userHistoryRoutes = require('./Routes/userHistory.js');
 const adminRoutes = require('./Routes/admin.js');
 
 // placing middlewares
 app.use('/user',userRoutes);
 app.use('/medicine',medicineRoutes);
+app.use('/disease',diseaseRoutes);
 app.use('/userHistory', userHistoryRoutes);
 app.use('/admin',adminRoutes);
 
