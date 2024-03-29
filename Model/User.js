@@ -24,9 +24,9 @@ const UserSchema = new Schema({
         // required: true, (we can't force for mobile number)
     },
 
-    images:[{
+    image:{
         type: String
-    }],
+    },
 
     country:{
         type: String,
