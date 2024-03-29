@@ -37,8 +37,8 @@ app.use("/public", express.static(path.join(__dirname, "public")));
 
 
 // default routes
-
 app.get("/", (req, res) => res.json({ signal: "green" }));
+
 
 // -------------------------- Starting backend -----------------------------
 app.listen(port, () => {

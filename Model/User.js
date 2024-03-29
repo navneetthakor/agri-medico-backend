@@ -21,7 +21,7 @@ const UserSchema = new Schema({
     
     contact_num:{
         type: String,
-        required: true,
+        // required: true, (we can't force for mobile number)
     },
 
     images:[{
