@@ -5,25 +5,27 @@ const router = express.Router();
 // to upload images 
 const upload = require('../Middelwares/fetchImages.js');
 
-// to send image to flask
-const fs = require('fs');
+// to communicate with ML model
+const axios = require('axios');
 
 // --------------------------ROUTE:1 Fetch disease name from flask server -------------------------------------------------------
 
 router.post('/fetchdiseasename', upload.single('image'),  async (req, res) => {
     try {
+        
+        // creating formData object 
         const formData = new FormData();
-        const response = await fetch('http://127.0.0.1:5000/classify', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'multipart/form-data',
-            },
-            body: formData,
-        })
+        formData.append('image',req.file);
 
-        const json = await response.json()
-        console.log(json)
-        return res.status(200).json({ "disease": json })
+        // const url = `${process.env.MODEL_URL}/`;
+        const url = 'http://127.0.0.1:5000/classify'
+        const body = {
+            formData
+        }
+        const response = await axios.post(url,body);
+        const data = response.data;
+        console.log(data)
+        return res.status(200).json({ "disease": data, signal: "green" })
 
     } catch (e) {
         console.log(e);
