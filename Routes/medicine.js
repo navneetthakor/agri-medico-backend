@@ -6,7 +6,7 @@ const router = express.Router();
 const {body} = require('express-validator');
 
 // to authorize the medicine addition, updation and deletion
-const admin = require('../middlewares/fetchAdmin');
+const fetchAdmin = require('../Middelwares/fetchAdmin.js');
 
 // to upload images 
 const upload = require('../Middelwares/fetchImages.js');
@@ -40,4 +40,4 @@ router.post('/getmedicines',
 ],
 viewSpecificMedicines);
 
-module.exports = router
+module.exports = router;
