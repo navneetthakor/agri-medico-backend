@@ -7,7 +7,7 @@ const fetchAdmin = async (req,res,next) =>{
     try{
 
     // get token from request header 
-    const token = req.header('authtoken');
+    const token = req.header('admintoken');
     if(!token){
        return res.status(401).json({error: "please login with valid authenticaiton token", signal: 'red'});
     }

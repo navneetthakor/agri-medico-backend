@@ -14,9 +14,10 @@ const fetchAdmin = require('../Middelwares/fetchAdmin.js');
 // importing controllers
 const createAdmin = require('../Controllers/admin/createAdmin.js');
 const adminLogin = require('../Controllers/admin/adminLogin.js');
+const adminAuthtokenLogin = require('../Controllers/admin/adminAuthtokenLogin.js');
 
 
-// --------------------------ROUTE:1 create user account ----------------------------------------------------------
+// --------------------------ROUTE:1 create Admin account ----------------------------------------------------------
 router.post('/createAdmin',
 upload.single('image'),
 [
@@ -34,5 +35,9 @@ router.post('/adminlogin',
 ],
 adminLogin);
 
+// --------------------------ROUTE:3 login to accoutn with authtoken ( previous login not require) ----------------------------------------------------------
+router.post('/adminAuthtokenLogin', 
+fetchAdmin, 
+adminAuthtokenLogin);
 
 module.exports = router;
