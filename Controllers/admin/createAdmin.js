@@ -56,8 +56,8 @@ const createAdmin = async(req,res) => {
             }
         }
         const jwt_secret = process.env.JWT_SECRET;
-        const usertoken = jwt.sign(data,jwt_secret);
-        return res.json({usertoken: usertoken, signal: "green"});
+        const admintoken = jwt.sign(data,jwt_secret);
+        return res.json({admintoken: admintoken, signal: "green"});
     
         }catch(e){
             console.log(e);

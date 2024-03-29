@@ -1,5 +1,5 @@
 // to connect with user Collection 
-const User = require('../../Model/User');
+const Admin = require('../../Model/Admin');
 
 // to validate body params 
 const {validationResult} = require('express-validator');
@@ -10,7 +10,7 @@ const jwt = require('jsonwebtoken');
 // to encrypt the password 
 const bcrypt = require('bcryptjs');
 
-const userLogin = async (req,res) => {
+const adminLogin = async (req,res) => {
     try{
         // check validation of parameters provided body 
         const err = validationResult(req);
@@ -18,14 +18,14 @@ const userLogin = async (req,res) => {
             return res.status(400).json({error: err.array(), signal: "red"});
         }
     
-        // check wheter any user exists with given email or not 
-        const user = await User.findOne({email: req.body.email});
-        if(!user){
-            return res.status(400).json({error: "user not exists", signal: "red"});
+        // check wheter any admin exists with given email or not 
+        const admin = await Admin.findOne({email: req.body.email});
+        if(!admin){
+            return res.status(400).json({error: "admin not exists", signal: "red"});
         }
     
         // check whether the password provided is correct or not 
-        const passCompare = await bcrypt.compare(req.body.password, user.password);
+        const passCompare = await bcrypt.compare(req.body.password, admin.password);
         if(!passCompare){
             return res.status(400).json({error: "enter valid credentials", signal: "red"});
         }
@@ -33,13 +33,13 @@ const userLogin = async (req,res) => {
         // we reach here means all details are correct 
         // so prepare authtoken to provide it back 
         const data = {
-            user: {
-                id: user._id
+            admin: {
+                id: admin._id
             }
         }
         const jwt_secret = process.env.JWT_SECRET;
-        const usertoken = jwt.sign(data,jwt_secret);
-        return res.json({usertoken: usertoken, signal: "green"});
+        const admintoken = jwt.sign(data,jwt_secret);
+        return res.json({admintoken: admintoken, signal: "green"});
     
         } catch (error) {
         console.log(error);
@@ -47,4 +47,4 @@ const userLogin = async (req,res) => {
         }
 };
 
-module.exports = userLogin;
+module.exports = adminLogin;
