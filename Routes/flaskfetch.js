@@ -10,22 +10,25 @@ const fs = require('fs');
 
 // --------------------------ROUTE:1 Fetch disease name from flask server -------------------------------------------------------
 
-router.post('/fetchdiseasename', async (req, res) => {
+router.post('/fetchdiseasename', upload.single('image'),  async (req, res) => {
     try {
-        const imgBuffer = fs.readFileSync(req.file.path)
+        const formData = new FormData();
         const response = await fetch('http://127.0.0.1:5000/classify', {
             method: 'POST',
             headers: {
                 'Content-Type': 'multipart/form-data',
             },
-            body: imgBuffer,
+            body: formData,
         })
 
         const json = await response.json()
-        return res.status(200).json({"disease":json.disease_name})
+        console.log(json)
+        return res.status(200).json({ "disease": json })
 
     } catch (e) {
         console.log(e);
         res.status(500).json({ error: "some error occured", signal: 'red' });
     }
 })
+
+module.exports = router
