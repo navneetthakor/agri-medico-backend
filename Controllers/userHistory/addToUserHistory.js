@@ -36,7 +36,7 @@ const addToUserHistory = async (req, res) => {
     // now all safe to add current disease_id to userHistory document
     const updtUserHistory = await UserHistory.findByIdAndUpdate(
       userHistory._id,
-      { $push: { search_history: req.body.disease_id } },
+      { $push: { search_history: req.body.disease_obj } },
       { new: true }
     );
 

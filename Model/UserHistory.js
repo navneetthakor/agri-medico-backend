@@ -7,9 +7,15 @@ const UserHistorySchema = new Schema({
         ref: 'user'
     },
 
-    search_history:[{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'disease'
+    search_history: [{
+        disease: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'disease'
+        },
+        search_date: {
+            type: Date,
+            default: Date.now
+        }
     }],
 
     date:{
