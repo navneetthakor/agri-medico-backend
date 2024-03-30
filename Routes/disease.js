@@ -38,7 +38,7 @@ viewDisease);
 // --------------------------ROUTE:3 Fetch medicine with their names ----------------------------------------------------------
 router.post('/getdisease',
 [
-    body("name", "please enter valid name").isArray().withMessage("Give array of names."),
+    body("name", "please enter valid name").not().isEmpty(),
 ],
 viewSpecificDisease);
 

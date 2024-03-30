@@ -31,7 +31,7 @@ const addDisease = async (req, res) => {
             name: req.body.name,
             images: req.file ? req.file.path : "",
             description: req.body.description,
-            urls: req.body.url
+            medicine_name: req.body.medicine_name
         })
         await newDisease.save();
 

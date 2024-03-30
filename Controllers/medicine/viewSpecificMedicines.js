@@ -13,8 +13,6 @@ const viewSpecificMedicines = async(req,res) =>{
             return res.status(400).json({error: err.array(), signal: "red"})
         }
         
-        console.log("req.name is : ", req.body.name)
-
         const medicines = await Medicine.find({ name: { $in: req.body.name }});
 
         if(!medicines){

@@ -13,13 +13,13 @@ const viewSpecificDisease = async(req, res) => {
             return res.status(400).json({error: err.array(), signal: "red"})
         }
         
-        const disease = await Disease.find({ name: { $in: req.body.name }});
+        const disease = await Disease.find({ name: req.body.name});
 
         if(!disease){
             return res.status(400).json({error: "No diseases."})
         }
 
-        return res.status(200).json(disease)
+        return res.status(200).json(disease[0])
         
     }catch(e){
         console.log(e);

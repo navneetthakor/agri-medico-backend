@@ -37,10 +37,43 @@ router.post('/fetchdiseasename', upload.single('file'),  async (req, res) => {
         });
 
         // Handle the response from Flask
-        const predicted_class = response.data
-        res.status(200).json({ predicted_class: predicted_class.class_name });
+        const predicted_class = response.data.class_name
+        console.log(predicted_class)
+
+
+        // fetching disease information from another endpoint
+        let requestBody = {
+            name: predicted_class
+        }
+
+        let requestHeader = {
+            'Content-Type': 'application/json'
+        }
+        const diseaseDetails = await axios.post(`${process.env.BACKEND_URL}/disease/getdisease`,requestBody, {
+            headers: requestHeader
+        })
+        const diseaseDetailsResponse = diseaseDetails.data
+        console.log(diseaseDetailsResponse)
+
+
+        // fetching medicine information from another endpoint
+        const medicines = diseaseDetailsResponse.medicine_name
+        console.log("medicines are : ", medicines)
+        requestBody = {
+            name: medicines
+        }
+        requestHeader = {
+            'Content-Type': 'application/json'
+        }
+        const medicineDetails = await axios.post(`${process.env.BACKEND_URL}/medicine/getmedicines`,requestBody, {
+            headers: requestHeader
+        })
+        const medicineDetailsResponse = medicineDetails.data
+        console.log(medicineDetailsResponse)
+
+        res.status(200).json({ diseaseDetailsResponse, medicineDetailsResponse });
     } catch (error) {
-        console.error('Error sending image to Flask:', error);
+        console.error('Error :', error);
         res.status(500).json({ error: 'Internal server error' });
     }
 })
