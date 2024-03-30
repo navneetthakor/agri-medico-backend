@@ -15,7 +15,7 @@ const path = require('path');
 
 // --------------------------ROUTE:1 Fetch disease name from flask server -------------------------------------------------------
 
-router.post('/fetchdiseasename', upload.single('file'),  async (req, res) => {
+router.post('/fetchdiseasename', upload.single('image'),  async (req, res) => {
     try {
         // Ensure req.file contains the uploaded file details
         if (!req.file) {
@@ -38,7 +38,7 @@ router.post('/fetchdiseasename', upload.single('file'),  async (req, res) => {
 
         // Handle the response from Flask
         const predicted_class = response.data
-        res.status(200).json({ predicted_class: predicted_class.class_name });
+        res.status(200).json({ predicted_class: predicted_class.class_name, signal: "green" });
     } catch (error) {
         console.error('Error sending image to Flask:', error);
         res.status(500).json({ error: 'Internal server error' });
