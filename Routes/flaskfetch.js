@@ -7,6 +7,7 @@ const upload = require('../Middelwares/fetchImages.js');
 
 // to communicate with ML model
 const axios = require('axios');
+const FormData = require('form-data');
 
 // to read file 
 const fs = require('fs');
@@ -14,31 +15,33 @@ const path = require('path');
 
 // --------------------------ROUTE:1 Fetch disease name from flask server -------------------------------------------------------
 
-router.post('/fetchdiseasename', upload.single('image'),  async (req, res) => {
+router.post('/fetchdiseasename', upload.single('file'),  async (req, res) => {
     try {
-        
-        // reading image being saved 
-        const savedImage = fs.readFileSync(path.resolve(req.file.path));
+        // Ensure req.file contains the uploaded file details
+        if (!req.file) {
+            return res.status(400).json({ error: "No file uploaded" });
+        }
 
-        // creating formData object 
+        // Read the uploaded image file as binary data
+        const imagePath = req.file.path;
+        const imageBuffer = fs.readFileSync(imagePath);
+
+        // Create a FormData object and append the image buffer with the key "image"
         const formData = new FormData();
-        formData.append('file',savedImage);
-        // formData.append('fileName', req.file.filename);
-        console.log(savedImage);
+        formData.append('image', imageBuffer, { filename: req.file.originalname });
 
-        // const url = `${process.env.MODEL_URL}/`;
+        // Send the image data to Flask server
         const url = 'http://127.0.0.1:5000/classify';
-        const headers = {
-                'Content-type': 'multipart/form-data'
-            }
-        const response = await axios.post(url,formData,headers);
-        const data = response.data;
-        console.log(data)
-        return res.status(200).json({ "disease": data, signal: "green" })
+        const response = await axios.post(url, formData, {
+            headers: formData.getHeaders() // Set headers from FormData object
+        });
 
-    } catch (e) {
-        console.log(e);
-        res.status(500).json({ error: "some error occured", signal: 'red' });
+        // Handle the response from Flask
+        const predicted_class = response.data
+        res.status(200).json({ predicted_class: predicted_class.class_name });
+    } catch (error) {
+        console.error('Error sending image to Flask:', error);
+        res.status(500).json({ error: 'Internal server error' });
     }
 })
 
