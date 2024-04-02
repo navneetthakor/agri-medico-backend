@@ -15,10 +15,11 @@ const getUserHistory = require('../Controllers/userHistory/getUserHistory.js');
 
 // --------------------------ROUTE:1 to push data in userHistory ----------------------------------------------------------
 router.put('/addToUserHistory',
-[
-    body('user_id', "please provide valid user id").not().isEmpty(),
-    body('disease_id', "please provide valid disease id").not().isEmpty(),
-],
+fetchUser,
+// [
+//     body('user_id', "please provide valid user id").not().isEmpty(),
+//     body('disease_id', "please provide valid disease id").not().isEmpty(),
+// ],
 addToUserHistory);
 
 // --------------------------ROUTE:2 to fetch userHistory ----------------------------------------------------------

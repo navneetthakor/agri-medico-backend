@@ -18,12 +18,13 @@ const path = require('path');
 router.post('/fetchdiseasename', upload.single('image'),  async (req, res) => {
     try {
         // Ensure req.file contains the uploaded file details
+        console.log("hlo: ", req.file)
         if (!req.file) {
             return res.status(400).json({ error: "No file uploaded" });
         }
 
         // Read the uploaded image file as binary data
-        const imagePath = req.file.path;
+        let imagePath = req.file.path;
         const imageBuffer = fs.readFileSync(imagePath);
 
         // Create a FormData object and append the image buffer with the key "image"
@@ -70,8 +71,8 @@ router.post('/fetchdiseasename', upload.single('image'),  async (req, res) => {
         })
         const medicineDetailsResponse = medicineDetails.data
         console.log(medicineDetailsResponse)
-
-        res.status(200).json({ diseaseDetailsResponse, medicineDetailsResponse });
+        imagePath = imagePath.replace('public\\', '')
+        res.status(200).json({ diseaseDetailsResponse, medicineDetailsResponse, imagePath });
     } catch (error) {
         console.error('Error :', error);
         res.status(500).json({ error: 'Internal server error' });

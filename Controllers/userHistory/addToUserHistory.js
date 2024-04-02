@@ -8,13 +8,13 @@ const { validationResult, check } = require("express-validator");
 const addToUserHistory = async (req, res) => {
   try {
     // validate body params
-    const err = validationResult(req);
-    if (!err.isEmpty()) {
-      return res.status(400).json({ error: err.array(), signal: "red" });
-    }
+    // const err = validationResult(req);
+    // if (!err.isEmpty()) {
+    //   return res.status(400).json({ error: err.array(), signal: "red" });
+    // }
 
     // check whether disease exists or not
-    const disease = await Disease.findById(req.body.disease_id);
+    const disease = await Disease.findById(req.body.disease_obj.disease);
     if (!disease) {
       return res
         .status(400)
@@ -27,7 +27,7 @@ const addToUserHistory = async (req, res) => {
 
     // find UserHistory collection for given user_id
     const userHistory = await UserHistory.findOne({
-      user_id: req.body.user_id,
+      user_id: req.user.id,
     });
     if (!userHistory) {
       return res.status(400).json({ error: "User not exists", signal: "red" });

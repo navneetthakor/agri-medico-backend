@@ -12,6 +12,9 @@ const UserHistorySchema = new Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: 'disease'
         },
+        img: {
+            type: String
+        },
         search_date: {
             type: Date,
             default: Date.now
