@@ -23,9 +23,6 @@ router.post('/createuser',
 upload.single('image'),
 [
     body("username", "please enter name").not().isEmpty(),
-    body("country", "please enter country").not().isEmpty(),
-    body("state", "please enter state").not().isEmpty(),
-    body("city", "please enter city").not().isEmpty(),
     body("email", "please enter valid email").isEmail(),
     body("password", "please enter password with minimum length of : 6").isLength({min:6})
 ],

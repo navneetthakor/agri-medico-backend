@@ -46,9 +46,6 @@ const createUser = async(req,res) => {
             email: req.body.email,
             password: securePas,
             contact_num: req.contact_num? req.contact_num : "",
-            country: req.body.country,
-            state: req.body.state,
-            city: req.body.city,
         })
         newUser.save();
     

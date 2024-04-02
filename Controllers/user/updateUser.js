@@ -21,15 +21,12 @@ const updateUser = async (req,res) => {
         
         // now user exists
         // get all the fields which are suppose to update 
-        const {username, contact_num, country, state, city} = req.body;
+        const {username, contact_num} = req.body;
         
         // create object to hold values 
         const newUser = {
             username: username ? username : user.username,
             contact_num: contact_num ? contact_num : user.contact_num,
-            country: country ? country : user.country,
-            state: state ? state : user.state,
-            city: city ? city : user.city,
         };
         if(req.file) newUser.image = req.file.path;
         
