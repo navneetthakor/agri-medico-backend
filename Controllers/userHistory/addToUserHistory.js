@@ -12,7 +12,6 @@ const addToUserHistory = async (req, res) => {
     // if (!err.isEmpty()) {
     //   return res.status(400).json({ error: err.array(), signal: "red" });
     // }
-
     // check whether disease exists or not
     const disease = await Disease.findById(req.body.disease_obj.disease);
     if (!disease) {
@@ -20,7 +19,6 @@ const addToUserHistory = async (req, res) => {
         .status(400)
         .json({ error: "disease not exists", signal: "red" });
     }
-
     // we are not checking for User existance because
     // if user exists then only it's document ins UserHistory collection will exists
     // so existance of user is implicit
@@ -32,14 +30,12 @@ const addToUserHistory = async (req, res) => {
     if (!userHistory) {
       return res.status(400).json({ error: "User not exists", signal: "red" });
     }
-
     // now all safe to add current disease_id to userHistory document
     const updtUserHistory = await UserHistory.findByIdAndUpdate(
       userHistory._id,
       { $push: { search_history: req.body.disease_obj } },
       { new: true }
     );
-
     return res.json({ userHistory: updtUserHistory, signal: "green" });
   } catch (e) {
     console.log(e);

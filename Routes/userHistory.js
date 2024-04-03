@@ -23,7 +23,7 @@ fetchUser,
 addToUserHistory);
 
 // --------------------------ROUTE:2 to fetch userHistory ----------------------------------------------------------
-router.post('/getUserHistory',
+router.get('/getUserHistory',
 fetchUser,
 getUserHistory);
 
