@@ -15,11 +15,12 @@ const upload = require('../Middelwares/fetchImages.js');
 const addDisease = require('../Controllers/disease/addDisease.js');
 const viewDisease = require('../Controllers/disease/viewDisease.js');
 const viewSpecificDisease = require('../Controllers/disease/viewSpecificDisease.js');
+const viewSpecificDiseaseWithId = require('../Controllers/disease/viewSpecificDiseaseWithId.js');
 const updateDisease = require('../Controllers/disease/updateDisease.js');
 const deleteDisease = require('../Controllers/disease/deleteDisease.js');
 
 
-// --------------------------ROUTE:1 Add medicine ----------------------------------------------------------
+// --------------------------ROUTE:1 Add disease ----------------------------------------------------------
 router.post('/adddisease',
 fetchAdmin,
 upload.single('image'),
@@ -30,24 +31,24 @@ upload.single('image'),
 ],
 addDisease);
 
-// --------------------------ROUTE:2 Fetch medicines ----------------------------------------------------------
+// --------------------------ROUTE:2 Fetch disease ----------------------------------------------------------
 router.get('/getalldiseases',
 fetchAdmin,
 viewDisease);
 
-// --------------------------ROUTE:3 Fetch medicine with their names ----------------------------------------------------------
+// --------------------------ROUTE:3 Fetch disease with their names ----------------------------------------------------------
 router.post('/getdisease',
 [
     body("name", "please enter valid name").not().isEmpty(),
 ],
 viewSpecificDisease);
 
-// --------------------------ROUTE:4 Delete medicine ----------------------------------------------------------
+// --------------------------ROUTE:4 Delete disease ----------------------------------------------------------
 router.get('/deletedisease/:id',
 fetchAdmin,
 deleteDisease);
 
-// --------------------------ROUTE:5 Update medicine ----------------------------------------------------------
+// --------------------------ROUTE:5 Update disease ----------------------------------------------------------
 router.put('/updatedisease/:id',
 fetchAdmin,
 upload.single('image'),
@@ -57,5 +58,9 @@ upload.single('image'),
     body("medicine_name", "please enter medicine names").isArray().withMessage("Medicine urls to be provided in an array format"),
 ],
 updateDisease);
+
+// --------------------------ROUTE:6 Fetch disease with their id ----------------------------------------------------------
+router.post('/getdiseasebyid',
+viewSpecificDiseaseWithId);
 
 module.exports = router;
