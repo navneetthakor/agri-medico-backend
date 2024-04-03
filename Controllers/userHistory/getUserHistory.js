@@ -5,9 +5,9 @@ const getUserHistory = async (req,res) => {
     try{
         const history = await UserHistory.findOne({user_id: req.user.id});
         if(!history){
-            return res.status(400).json({error: "No history."})
+            return res.status(400).json({error: "No history.", signal: 'red'})
         }
-        return res.status(200).json(history)
+        return res.status(200).json({history: history, signal: 'green'});
 
     } catch (e) {
         console.log(e);
