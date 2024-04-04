@@ -36,7 +36,13 @@ const addToUserHistory = async (req, res) => {
       { $push: { search_history: req.body.disease_obj } },
       { new: true }
     );
-    return res.json({ userHistory: updtUserHistory, signal: "green" });
+
+
+    // getting userhistoryid and searchhistoryid for returning
+    const getData = await UserHistory.find({user_id: req.user.id})
+    const filteredData = getData[0].search_history.filter(data => data.img === req.body.disease_obj.img)
+      return res.json({historyId: getData[0]._id, data: filteredData[0], signal:"green"})
+    // return res.json({ userHistory: updtUserHistory, signal: "green" });
   } catch (e) {
     console.log(e);
     return res
