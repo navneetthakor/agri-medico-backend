@@ -54,11 +54,11 @@ router.post('/fetchdiseasename', upload.single('image'),  async (req, res) => {
             headers: requestHeader
         })
         const diseaseDetailsResponse = diseaseDetails.data
-        console.log(diseaseDetailsResponse)
+        console.log("diseaseDetailsResponse : ", diseaseDetailsResponse)
 
 
         // fetching medicine information from another endpoint
-        const medicines = diseaseDetailsResponse.medicine_name
+        const medicines = diseaseDetailsResponse.disease.medicine_name
         console.log("medicines are : ", medicines)
         requestBody = {
             name: medicines
