@@ -32,7 +32,7 @@ router.post('/fetchdiseasename', upload.single('image'),  async (req, res) => {
         formData.append('image', imageBuffer, { filename: req.file.originalname });
 
         // Send the image data to Flask server
-        const url = 'http://127.0.0.1:5000/classify';
+        const url = `${process.env.MODEL_URL}/classify`;
         const response = await axios.post(url, formData, {
             headers: formData.getHeaders() // Set headers from FormData object
         });
