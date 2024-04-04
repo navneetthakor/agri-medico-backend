@@ -19,7 +19,7 @@ const viewSpecificDisease = async(req, res) => {
             return res.status(400).json({error: "No diseases."})
         }
 
-        return res.status(200).json(disease[0])
+        return res.status(200).json({disease: disease[0], signal: "green"})
         
     }catch(e){
         console.log(e);

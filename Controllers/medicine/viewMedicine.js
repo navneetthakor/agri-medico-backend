@@ -9,7 +9,7 @@ const viewMedicine = async(req,res) =>{
             return res.status(400).json({error: "No medicines."})
         }
 
-        return res.status(200).json(medicines)
+        return res.status(200).json({medicines, signal: "green"})
         
     }catch(e){
         console.log(e);
